@@ -282,17 +282,17 @@
                 
                 //for文でS1のgeocode_dataArray全てのaddressとivent[3]を検証
                 for(var a = 1; a< ivent_length +1 ; a++){
-                    b = a
-                    
-                    if(a > 239){
-                        b = 239
-                    }
                     
                     //一致した時のみ、marker_locatonに緯度経度を格納
-                    if(ivent[marker_number][3] == geocode_dataArray[b]["address"]){
+                    
+                    if(a<239){
+                        continue;
+                    }
+                    
+                    if(ivent[marker_number][3] == geocode_dataArray[a]["address"]){
                         marker_location = {
-                            lat: geocode_dataArray[b]["location"][1], // 緯度
-                            lng: geocode_dataArray[b]["location"][0]// 経度
+                            lat: geocode_dataArray[a]["location"][1], // 緯度
+                            lng: geocode_dataArray[a]["location"][0]// 経度
                         };   
                     }
                 }
