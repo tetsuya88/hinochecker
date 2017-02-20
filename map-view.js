@@ -268,7 +268,7 @@
                 
                 //for文でS1のgeocode_dataArray全てのaddressとivent[3]を検証
                 for(var a = 1; a< ivent_length +1 ; a++){
-                    
+                    console.log(geocode_dataArray[a]);
                     //一致した時のみ、marker_locatonに緯度経度を格納
                     if(ivent[marker_number][3] == geocode_dataArray[a]["address"]){
                         marker_location = {
