@@ -285,7 +285,7 @@
                     
                     //一致した時のみ、marker_locatonに緯度経度を格納
                     
-                    if(a<239){
+                    if(a>239){
                         continue;
                     }
                     
