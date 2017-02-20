@@ -11,7 +11,7 @@
 
         //数値の初期設定
         var apiKey = 'AIzaSyDV-W1Zg9_wGJPww-NT5tz9Wi78QF-sDuM';
-        var tableId = '1Z5wytXgqUl5bbkXf_QOradh4QAEICkBXu1HEa_s_';
+        var tableId = '1nPQg8swnnMOzYL7k7-McfYrDeMWjuh7bP3QThptN';
         var dataArray = {};
         var all_iventData = {};
         
@@ -268,7 +268,11 @@
                 
                 //for文でS1のgeocode_dataArray全てのaddressとivent[3]を検証
                 for(var a = 1; a< ivent_length +1 ; a++){
-                    console.log(a + "is" + geocode_dataArray[a]["address"]);
+                    
+                    if(a>239){
+                        continue;
+                    }
+                    
                     //一致した時のみ、marker_locatonに緯度経度を格納
                     if(ivent[marker_number][3] == geocode_dataArray[a]["address"]){
                         marker_location = {
