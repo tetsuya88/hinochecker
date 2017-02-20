@@ -1,0 +1,712 @@
+html{
+    height: 100%;
+    overflow: hidden;
+}
+
+body{
+    margin:0;
+    width: 100vw;
+    height: 89vh;
+    font-family: "Rounded Mplus 1c";
+    overflow: hidden;
+}
+
+/*トップページのスタイル*/
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+
+#wrapper0{
+    position:relative;
+    width: 90vw;
+    height: 25vh;
+    margin: 0 auto;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: flex-end; /* Safari */
+    align-items:         flex-end;
+    -webkit-flex-direction:row;
+    flex-direction:row;
+    -webkit-justify-content: space-around; /* Safari */
+    justify-content: space-around;
+    background-color: #FFF;
+    text-align: center;
+    top: 0px;
+}
+
+#title{
+    text-align: center;
+    position: relative;
+    top:15vh;
+    margin: 0 auto;
+    width:  300px;
+    height: 115px;
+}
+
+#choice_label{
+    margin-top: 35vh;
+    font-weight: normal;
+    text-align: center;
+    font-size: 16pt;
+}
+
+.move{
+    height: 130px;
+    width: 97px;
+    background-color: #69b766;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: normal;
+    line-height: 55px
+}
+
+
+/*--------------------------------------------------------------------------*/
+
+#loader-bg {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background: #fff;
+  z-index: 100;
+}
+
+#loader {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  margin-top: -100px;
+  margin-left: -100px;
+  text-align: center;
+  color: #959595;
+  z-index: 100;
+}
+
+/*カレンダー表示のスタイル
+  親要素はbody
+*/
+#wrapper1{
+    position:absolute;
+    width: 100%;
+    height: 89vh;
+    margin: 0px;
+    margin-bottom:; 
+    background-color: #FFF;
+    text-align: center;
+    z-index: 2;
+    top: 0px;
+}
+
+/*マップ表示画面のスタイル
+  親要素はbodyでwidth: 100vw;height: 89vh;
+*/
+#wrapper2{
+    position:absolute;
+    width: 100%;
+    height: 89vh;
+    margin: 0px;
+}
+
+
+/*マップ描画部分のスタイル
+  親要素はwrapper2でwidth: 100%(100vw);height: 100%(89vh);
+*/
+.map-embed
+{
+	width: 100% ;
+    min-height: 81.5vh;
+	
+	margin: 0 ;
+
+	overflow: hidden ;
+    height: auto;
+
+	position: relative ;
+	left: 0 ;
+    
+    padding: 0px;
+}
+
+.map-embed > div
+{
+	position: absolute ;
+	top: 0 ;
+	left: 0 ;
+
+	width: 100% ;
+	height: 100% ;
+
+	margin: 0 ;
+	padding: 0 ;
+}
+
+.map-embed img
+{
+	max-width: none ;
+}
+
+/*現在地を示すアイコンのスタイル*/
+.myLocation_point {
+    position: relative;
+    display: block;
+    width: 15px;
+    height: 15px;
+    top:0px;
+    border-radius: 100px;
+    background: #ffac82;
+}
+/*現在地を示すアイコンのスタイルその２*/
+.myLocation_point .ring {
+    background: rgba(255, 172, 130, 0.8);
+    position: absolute;
+    z-index: -1;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+    /* センター揃えとリングの大きさ */
+    height: 30px;
+    width: 30px;
+    top: -7.5px;
+    left: -7.5px;
+    -webkit-animation: pulsate-2 1.5s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation: pulsate-2 1.5s ease-out;
+    -moz-animation-iteration-count: infinite;
+}
+/*挙動*/
+@-webkit-keyframes pulsate-2 {
+    0% {-webkit-transform: scale(1, 1); }
+    100% {-webkit-transform: scale(2, 2); opacity: 0.0;}
+}
+
+/*情報ポップアップの全体画面(黒背景)のスタイル
+  親要素はwrapper2でwidth: 100%(100vw);height: 100%(89vh);
+*/
+#infowindow-wrapper{
+    width: 100%;
+    height: 89vh;
+    position: absolute;
+    top: 0px;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 5;
+}
+
+/*情報ポップアップの中身画面のスタイル
+  親要素はinfowindow-wrapperでwidth: 100%(100vw);height: 100%(89vh);
+*/
+#infowindow-output {
+    position: absolute;
+    top: 94px;
+    margin-left: 9vw;
+    margin-right: 9vw;
+    width: 82vw;
+    height: 400px;
+    background-color:white;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+/*情報ポップアップのタイトルのスタイル
+  親要素はinfowindow-output;
+*/
+#infowindow-output-iventtitle{
+    position: absolute;
+    font-weight: bold;
+    width: 88%;
+    margin-left: 6%;
+    margin-right: 6%;
+    height: 47px;
+    top: 25px;
+    overflow: scroll;
+    
+}
+
+/*情報ポップアップの時間のスタイル
+  親要素はinfowindow-output;
+*/
+#infowindow-output-when{
+    position: absolute;
+    width: 88%;
+    height: 35px;
+    margin-left: 6%;
+    margin-right: 6%;
+    top: 95px;
+}
+
+/*情報ポップアップの場所のスタイル
+  親要素はinfowindow-output;
+*/
+#infowindow-output-where{
+    position: absolute;
+    width: 88%;
+    height: 35px;
+    margin-left: 6%;
+    margin-right: 6%;
+    top:145px;
+}
+
+/*情報ポップアップのタグのスタイル
+  親要素はinfowindow-output;
+*/
+#infowindow-output-iventtitle-tag{
+    text-align: center;
+    position: absolute;
+    width: 45px;
+    height: 25px;
+    background-color:#69B766;
+    color: white;
+}
+
+/*情報ポップアップのタグのあとの文章のスタイル
+  親要素はinfowindow-output;
+*/
+.infowindow-output-aftertag{
+    float: left;
+    width: 200px;
+    font-size: 10pt;
+    margin-left: 60px;
+    overflow: scroll;
+    white-space: nowrap;
+}
+
+/*情報ポップアップの備考欄のスタイル
+  親要素はinfowindow-output;
+*/
+#infowindow-output-textarea{
+    position: absolute;
+    width: 92%;
+    height: 110px;
+    margin-left: 4%;
+    margin-right: 4%;
+    background-color: darkseagreen;
+    overflow: scroll;
+    bottom:90px;
+    font-size: 10pt;
+    border-radius:5px;
+}
+
+/*情報ポップアップの備考欄の中の文字のスタイル
+  親要素はinfowindow-output;
+*/
+#infowindow-output-etc{
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 2%;
+}
+
+/*情報ポップアップのボタンを入れる箱のスタイル
+  親要素はinfowindow-output;
+*/
+#infowindow-output-buttonbox{
+    position: absolute;
+    width: 100%;
+    height: 70px;
+    bottom:0px;
+    background-color:#69B766;
+}
+
+
+/*情報ポップアップの電話のボタンのスタイル
+*/
+#infowindow-output-tel-box{
+    float: left;
+    width: 49.5%;
+    height: 70px;
+    bottom:0px;
+    border-right: solid 1px;
+    border-right-color: white;
+}
+
+
+/*情報ポップアップのナビゲーションのボタンのスタイル
+*/
+#infowindow-output-navi-box{
+    float: left;
+    width: 49.5%;
+    height: 70px;
+    bottom:0px;
+    border-left: solid 1px;
+    border-left-color: white;
+    
+}
+
+/*情報ポップアップの二つのボタンを仕切るための入れ物のスタイル
+*/
+.infowindow-output-buttonbox-icon{
+    float:left;
+    height: 56px;
+    width: 56px;
+    margin-top:7px;
+    margin-left: 15px;
+}
+
+/*情報ポップアップの電話のボタンの横の文字スタイル
+*/
+.infowindow-output-buttonbox-text{
+    float:left;
+    text-align: center;
+    width: 70px;
+    height: 70px;
+    color: white;
+    font-size: 10pt;
+    line-height: 70px;
+}
+
+
+/*情報一覧のスタイル
+  親要素はwrapper2
+*/
+#infowindow-bars{
+    position: absolute;
+    bottom: 7.5vh;
+    width: 100vw;
+    height: auto;
+    background-color: rgba(255,255,255,0.8);
+    z-index: 1;
+    max-height: 30vh;
+    overflow: scroll;
+}
+
+
+/*情報一覧のタイトルのスタイル
+  親要素はinfowindow-bars
+*/
+.info-bar-title{
+    float: left;
+    margin-left: 2vw;
+    width: 70vw;
+    height: 20px;
+    font-size: 12pt;
+    font-weight: bolder;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+/*情報一覧の日程のスタイル
+  親要素はinfowindow-bars
+*/
+.info-bar-date{
+    float: left;
+    margin-left: 10vw;
+    font-size: 10pt;
+    width: 70vw;
+    height: 16px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+/*情報一覧の場所のスタイル
+  親要素はinfowindow-bars
+*/
+.info-bar-place{
+    float: left;
+    margin-left: 10vw;
+    font-size: 10pt;
+    width: 70vw;
+    height: 18px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+/*フッターバーのスタイル
+  親要素はwrapper2
+*/
+#footer-bar{
+    position: absolute;
+    bottom: 0px;
+    width: 100vw;
+    height: 7.5vh;
+    background-color:#69B766;
+}
+
+
+
+/*ヘッダーバーのスタイル
+  親要素はwrapper2
+*/
+
+
+#back-to-calender{
+    float: left;
+    width: 49.5vw;
+    color: white;
+    font-size: 14pt;
+    border-right:solid 1vw;
+    border-right-color: white;
+    text-align: center;
+}
+
+
+
+
+#toggle-infowindow-bars{
+    float: right;
+    width: 49.5vw;;
+    color: white;
+    font-size: 18pt;
+    border-left-color: white;
+    text-align: center;
+}
+
+.fotter-btn{
+    width: 5vh;
+    height: 5vh;
+    margin-top: 1.25vh;
+}
+
+#yajirushi{
+    position: absolute;
+    width: 15px;
+    line-height: 7.5vh;
+    top:5px;
+    left: 80vw;
+}
+
+.info-bars{
+    height: 5vh;
+}
+
+.info-bar-infobutton{
+    float: right;
+    width: 5vh;
+    height: 5vh;
+    margin-right: 15px;
+    margin-top: -3.5vh;
+}
+
+hr{
+    float: left;
+    width: 100%;
+}
+
+/*カレンダー表示に関するスタイル*/
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+/*日付選択ラベル*/
+#calendar_label{
+    font-size: 18pt;
+    margin-top: 13%;
+    letter-spacing: 1pt;
+    font-weight: normal;
+}
+/*カレンダー生成場所*/
+.calendar_zone{
+    color: #000000;
+    width: 90%;
+    font-size: 14pt;
+}
+/*今月の表示ラベル*/
+.now_month{
+    margin: 0 auto;
+    width: 25vw;
+    color: #000;
+    text-align: center;
+    font-size: 21pt;
+    margin-bottom: 5pt;
+    letter-spacing: 1pt;
+    border-bottom: solid 3px;
+}
+/*前月移動ボタン*/
+#prev_month{
+    color: #959595;
+    float: left;
+    font-size: 13pt;
+    text-decoration: none;
+    letter-spacing: 1pt;
+    margin-left: 7%;
+    top: 0px;
+    border-bottom: solid 1px;
+}
+/*翌月移動ボタン*/
+#next_month{
+    color: #959595;
+    float: right;
+    font-size: 13pt;
+    text-decoration: none;
+    letter-spacing: 1pt;
+    margin-right: 7%;
+    top: 0px;
+    border-bottom: solid 1px;
+}
+/*曜日*/
+.days_of_week{
+    height: 50px;
+}
+/*週*/
+.week1,
+.week2,
+.week3,
+.week4,
+.week5{
+    font-size: 18pt;
+    height: 50px;
+}
+/*土曜*/
+.sat0,
+.sat1,
+.sat2,
+.sat3,
+.sat4{
+    color: #0A34DB;
+}
+        
+/*日曜・祝日*/
+.month1 .date1,/* 元日 */
+.month1 .mon2,/* 成人の日 */
+.month2 .date11,/* 建国記念の日 */
+.month4 .date29,/* 昭和の日 */
+.month5 .date3,/* 憲法記念日 */
+.month5 .date4,/* みどりの日 */
+.month5 .date5,/* こども日 */
+.month7 .mon3,/* 海の日 */
+.month9 .mon3,/* 敬老の日 */
+.month10 .mon2,/* 体育の日 */
+.month11 .date3,/* 文化の日 */
+.month11 .date23,/* 勤労感謝の日 */
+.month12 .date23,/* 天皇誕生日 */
+#d20110321,/* 春分の日（年によって異なる 20日 - 21日） */
+#d20110923,/* 秋分の日（年によって異なる 20日 - 24日） */
+.sun0,
+.sun1,
+.sun2,
+.sun3,
+.sun4,
+.sun5{
+    color: #D0021B;
+}
+
+/*ジャンル表示に関するスタイル*/
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+/*ジャンル画面のラッパー*/
+#wrapper3{
+    position:absolute;
+    width: 100vw;
+    height: 89vh;
+    margin: 0px;
+    background-color: #FFF;
+    text-align: center;
+    font-weight: lighter;
+    z-index: 5;
+    
+}
+
+/*ジャンル画面の見出し*/
+#genre_label{
+    font-size: 16px;
+    margin-top: 13%;
+    letter-spacing: 1pt;
+    font-weight:normal;
+}
+/*ジャンル選択ボタン（非表示固定）*/
+#genre01,
+#genre02,
+#genre03,
+#genre04,
+#genre05,
+#genre06,
+#genre07,
+#genre08{
+    display: none;
+}
+/*ジャンル選択ボタンの領域*/
+#genre_selector{
+    position: relative;
+    margin: 0 auto;
+    width: 70vw;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction:row;
+    flex-direction:row;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: center; /* Safari */
+    justify-content: center;
+    -webkit-align-content: center;
+    align-content: center;
+    background-color: #FFF;
+    height: 70vh;
+
+}
+/*ジャンル選択ボタン（ラベル）*/
+.genre_button{
+    margin: 5px auto;
+    width: 92px;
+    height: 92px;
+    text-align: center;
+    background-color: #69b766;
+    -wabkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/*ジャンル画面に戻るためのボタン*/
+#back-to-genre{
+    float: left;
+    width: 49.5vw;
+    color: white;
+    font-size: 14pt;
+    border-right:solid 1vw;
+    border-right-color: white;
+    text-align: center;
+}
+
+/*アイコンなどに関するスタイル*/
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+
+/*ヘッダーバーのホームアイコン*/
+#back-to-home{
+    position: relative;
+    width: 50px;
+    height: 34px;
+    padding: 5px;
+    margin-right: 0px;
+    margin-top: 2vh;
+    float: right;
+    top: -5px;
+    background-color: #69b766;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    z-index: 10;
+    opacity: 0;
+    -webkit-animation:slideIn 2s ease-out ;
+    animation:slideIn 2s ease-out;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes slideIn {
+     
+    from{
+        -ms-transform:translateX(80px);
+        -webkit-transform:translateX(80px);
+        transform:translateX(80px);
+        -ms-opacity:0;
+        -webkit-opacity:0;
+        opacity:0;
+    }
+    to{
+        -ms-transform:translateX(0px);
+        -webkit-transform:translateX(0px);
+        transform:translateX(0px);
+        -ms-opacity:1;
+        -webkit-opacity:1;
+        opacity:1;
+    }
+}
+
+
+#yajirushi[sts="std"],
+#yajirushi[sts="rot"] {
+  transition-property: transform;
+  transition-duration: 0.7s;
+}
+#yajirushi[sts="rot"] {
+  transform: rotate(180deg);
+}

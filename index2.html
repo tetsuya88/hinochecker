@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-language" content="ja">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>FusionTables Test</title>
+    
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//apis.google.com/js/client.js"></script>
+    <script src="//www.google.com/jsapi"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGR_l8pxOrb1H3cMBvBrLnsAI55rzJel4">
+    </script>
+    <script src="map-view2.js"></script>
+    <link href="https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css" rel="stylesheet" />
+</head>
+
+<body>
+<!-- ローディング画面の描画 -->
+<div id="loader-bg">
+  <div id="loader">
+    <img src="img/img-loading.gif" width="80" height="80" alt="Now Loading..." />
+    <p>Now Loading...</p>
+  </div>
+</div>
+
+
+<!-- ホームボタンの描画 -->
+    <a href="index.html" id="back-to-home"> <img src="img/homeicon.png" style="height:33px;width:33px;"></a>
+
+
+<!-- ジャンル画面の描画 -->
+<div id= "wrapper3">
+    <h1 id= "genre_label">ジャンルを選択してください</h1>
+    <div id= "genre_selector">
+        <input type="button" id="genre01" value="相談" onclick=select_genre(this.id)><label for="genre01" class= "genre_button"><img src="img/soudan.png" style="width:92px;height:92px;"></label>
+        <input type="button" id="genre02" value="コミュニティ" onclick=select_genre(this.id)><label for="genre02" class= "genre_button"><img src="img/community.png"style="width:92px;height:92px;"></label>
+        <input type="button" id="genre03" value="健康" onclick=select_genre(this.id)><label for="genre03" class= "genre_button"><img src="img/kenkou.png"style="width:92px;height:92px;"></label>
+        <input type="button" id="genre04" value="子育て" onclick=select_genre(this.id)><label for="genre04" class= "genre_button"><img src="img/kosodate.png"style="width:92px;height:92px;"></label>
+        <input type="button" id="genre05" value="出産" onclick=select_genre(this.id)><label for="genre05" class= "genre_button"><img src="img/shussan.png"style="width:92px;height:92px;"></label>
+        <input type="button" id="genre06" value="講座" onclick=select_genre(this.id)><label for="genre06" class= "genre_button"><img src="img/kouza.png"style="width:92px;height:92px;"></label>
+        <input type="button" id="genre07" value="エンタメ" onclick=select_genre(this.id)><label for="genre07" class= "genre_button"><img src="img/entame.png"style="width:92px;height:92px;"></label>
+        <input type="button" id="genre08" value="その他" onclick=select_genre(this.id)><label for="genre08" class= "genre_button"><img src="img/etc.png"style="width:92px;height:92px;"></label>
+    </div>
+</div>
+
+
+
+<!-- マップ画面の描画 -->
+<div id="wrapper2">
+    
+    <!-- 地図描画部分 -->
+    <div id="map-view">
+        <div class="map-embed">
+            <div id="map-canvas">ここに地図が表示されます</div>
+        </div>
+    </div>
+
+  <script>
+    window.onload = function(){
+        get_myLocation();
+        initMap();
+    }
+    </script>
+   
+    <!-- 情報ウィンドウdivを表示する場所  -->
+    <div id="infowindow-wrapper">
+        <div id="infowindow-output">
+            <div id="infowindow-output-iventtitle">イベントタイトル</div>
+            <div id="infowindow-output-when">
+                <div id="infowindow-output-iventtitle-tag">時間</div>
+                <span id="infowindow-output-date" class="infowindow-output-aftertag">開催日時</span>
+                <span id="infowindow-output-time" class="infowindow-output-aftertag">開催時間</span>
+            </div>
+            <div id="infowindow-output-where">
+                <div id="infowindow-output-iventtitle-tag">場所</div>
+                <div id="infowindow-output-place" class="infowindow-output-aftertag">開催場所</div>
+                <div id="infowindow-output-location" class="infowindow-output-aftertag">住所</div>
+            </div>
+            
+            <!-- 備考欄表示ボックス -->
+            <div id="infowindow-output-textarea">
+                <div id="infowindow-output-etc">備考</div>
+            </div>
+            
+            <div id="infowindow-output-buttonbox">
+                <!-- 電話機能ボタン -->
+                <a href="" id="infowindow-output-tel">
+                    <div id="infowindow-output-tel-box">
+                        <img src="img/tel.png" class="infowindow-output-buttonbox-icon">
+                        <span class="infowindow-output-buttonbox-text">電話する</span>
+                    </div>
+                </a>
+                <!-- 移動機能ボタン -->
+                <!-- ピンを目的地として現在地からのナビを起動する。今回はgoogle mapに絞る -->
+                <a href="" id="open_navigation">
+                    <div id="infowindow-output-navi-box">
+                        <img src="img/navi.png" class="infowindow-output-buttonbox-icon">
+                        <span class="infowindow-output-buttonbox-text">経路検索</span>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    
+    <!-- 情報一覧表示バー -->
+    <div id="infowindow-bars">
+        <hr>
+    </div>  
+
+    <div id="footer-bar">
+        <div id="back-to-genre" onclick = "removeMarker(null)"><img src="img/backbutton.png" class="fotter-btn"></div>
+        <div id="toggle-infowindow-bars">
+            <img src="img/infobars-button.png" class="fotter-btn">
+            <div id="yajirushi" sts="std">↓</div>
+        </div>
+    </div>
+    
+</div> 
+
+
+      
+</body>
+</html>
